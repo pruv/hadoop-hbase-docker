@@ -1,0 +1,47 @@
+Starting HBASE using Docker:
+
+1.) build images 	 - ./build-image.sh hadoop-hbase-base
+2.) satrte container - ./start-container.sh latest 2
+3.) check members    - serf members
+4.) configure membrs - ./configure-members.sh
+5.) start hadoop 	 - ./start-hadoop.sh 
+6.) start hbase      - ./start-hbase.sh
+7.) start rest srvr  - hbase-daemon.sh start rest
+
+Test cluster:
+
+-> create 'album','label','image'
+-> put 'album','label1','label:size','10'
+-> put 'album','label1','image:name','holiday'
+-> get 'album','label1'
+
+Result : 
+COLUMN                                                                                      CELL                                                                                                                                                                                                                                                                          
+ image:name                                                                                 timestamp=1483543372388, value=holiday                                                                                                                                                                                                                                        
+ label:size                                                                                 timestamp=1483543366714, value=10                                                                                                                                                                                                                                             
+2 row(s) in 0.0430 seconds
+
+curl -vi -X GET -H "Accept: text/xml" "http://localhost:8080/version/cluster"
+curl -vi -X GET -H "Accept: application/json” "http://localhost:8080/version/cluster"
+curl -vi -X GET -H "Accept: text/xml" "http://localhost:8080/status/cluster"
+curl -vi -X GET -H "Accept: text/xml" "http://localhost:8080/"
+
+
+littlered
+
+ssh a588983@edge.littlered.target.com
+
+
+REST API
+
+
+Create Tables 
+
+
+PUT http://localhost:8080/automobile/schema
+-H "Accept: application/json"
+-H "Content-Type: application/json"
+
+{"name": "automobile", "ColumnSchema": [{"name": "features"},{"name": "brand"}]}
+
+
